@@ -4,6 +4,8 @@
 
 Part of an assignment of course COL334. TCP sockets were used to create a simple chat application. 
 
+A detailed description of the problem statement can be found [here](./assets/problem_statement.pdf).
+
 ### Instructions to run
 
 1. Compiling the code
