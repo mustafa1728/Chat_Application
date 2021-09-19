@@ -1,7 +1,7 @@
 compile: 
 	$(info Compiling code...)
-	@g++-11 server.cpp -o server 
-	@g++-11 client.cpp -o client	
+	@g++-11 src/server.cpp -o server 
+	@g++-11 src/client.cpp -o client	
 	$(info Compilation complete)
 
 runserver:
