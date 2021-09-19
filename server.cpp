@@ -103,10 +103,10 @@ int send_message(string message, string from_user, string to_user ){
 }
 
 // waits for any message from the user. Then on the basis of the type of message, handles it
-void* handle_client(void* server_socket){
+void* manage_client(void* socket){
 
     char buff_out[BUFFER_SZ];
-    int socket_id = *(int*)server_socket;
+    int socket_id = *(int*)socket;
     string username;
     while (1){
         
@@ -188,12 +188,14 @@ void* handle_client(void* server_socket){
                 Error::send_msg(103, socket_id);
                 close(socket_id);
                 close(clients[username].second);
+                clients.erase(username);
                 break;
             }
             if (!message.valid){
                 Error::send_msg(103, socket_id);
                 close(socket_id);
                 close(clients[username].second);
+                clients.erase(username);
                 break;
             }
 
@@ -208,7 +210,7 @@ void* handle_client(void* server_socket){
         }
     }
 
-    pthread_exit(server_socket);
+    pthread_exit(socket);
 }
 
 
@@ -216,22 +218,22 @@ void* handle_client(void* server_socket){
 
 int main(){
 
-    //create a socket 
-    int main_server_socket = socket(AF_INET,SOCK_STREAM,0);
+    // create a socket 
+    int server_socket = socket(AF_INET,SOCK_STREAM,0);
     int port = PORT;
 
-    //specify an address for the socket 
+    // pecify an address for the socket 
     struct sockaddr_in server_address , client_address, client_snd_address;
     server_address.sin_family = AF_INET;
     server_address.sin_addr.s_addr = INADDR_ANY;
     server_address.sin_port = htons(port);
 
-    int socket_id = bind( main_server_socket , (struct sockaddr *)&server_address, sizeof(server_address));
+    int socket_id = bind( server_socket , (struct sockaddr *)&server_address, sizeof(server_address));
     if( socket_id == -1 ){
         cout<<"There was an error making connection to the server socket\n\n";
         return EXIT_FAILURE;
     }
-    if( listen(main_server_socket , 10 ) < 0 ){
+    if( listen(server_socket , 10 ) < 0 ){
         cout<<"ERROR, in server socket listen\n \n";
         return EXIT_FAILURE;
     }
@@ -246,8 +248,8 @@ int main(){
 
         socklen_t cli_len = sizeof(client_address);
         int *client_socket_id = (int *)malloc(sizeof(int));
-		*client_socket_id = accept(main_server_socket , (struct sockaddr*)&client_address, &cli_len);
-        pthread_create(&t_id, NULL, &handle_client, (void*)client_socket_id);
+		*client_socket_id = accept(server_socket , (struct sockaddr*)&client_address, &cli_len);
+        pthread_create(&t_id, NULL, &manage_client, (void*)client_socket_id);
     }
     return 0;
 }

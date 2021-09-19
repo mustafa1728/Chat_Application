@@ -6,6 +6,8 @@
 
 using namespace std;
 
+// Unified class to manage different errors
+// Only need to specify the error code, the function sends corresponding error message over the socket.
 class Error{
 public:
     static char* get(int status){
@@ -40,6 +42,7 @@ public:
     }
 
     static bool is_fatal_error(string msg){
+        // for parsing received error message
         string error_103 = "ERROR 103";
         if (strstr(msg.c_str(), error_103.c_str())){
             return true;
@@ -47,6 +50,7 @@ public:
         return false;
     }
     static bool is_error(string msg){
+        // for parsing received error message
         string error = "ERROR";
         if (strstr(msg.c_str(), error.c_str())){
             return true;

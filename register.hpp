@@ -6,6 +6,8 @@
 
 using namespace std;
 
+// Unified class to manage register requests and acknowledgements
+// Makes it easier to specify and change the format.
 class Register{
 public:
     static bool is_to_rcv(string msg){

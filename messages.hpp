@@ -8,6 +8,8 @@
 
 using namespace std;
 
+// Unified class to manage messages format
+// Makes it easier to specify and change the format.
 class Message{
 
 public:
@@ -35,6 +37,7 @@ public:
     }
 
     void parse_msg(string msg, int matched_type){
+        // parses a received message, and chcks if its valid
         string regex_format;
         int init_idx;
         if (matched_type == 0){
@@ -87,24 +90,28 @@ public:
     }
 
     static int req_send(string username, string message, int sockfd){
+        // sends a message with required format to username
         string msg = "SEND " + username + "\nContent-length: " + to_string(message.length()) + "\n\n" + message+"\n";
         char* char_msg = strcpy(new char[ msg.length() + 1], msg.c_str()); 
         return send(sockfd, char_msg, strlen(char_msg), 0);
     }
 
     static void ack_send(string username, int sockfd){
-        string msg = "SEND " + username + "\n\n";
+        // sends an acknowledgement that the message was sent
+        string msg = "SENT " + username + "\n\n";
         char* char_msg = strcpy(new char[ msg.length() + 1], msg.c_str()); 
         send(sockfd, char_msg, strlen(char_msg), 0);
     }
 
     static int req_forward(string username, string message, int sockfd){
+        // forwards a message with required format to username
         string msg = "FORWARD " + username + "\nContent-length: " + to_string(message.length()) + "\n\n" + message+"\n";
         char* char_msg = strcpy(new char[ msg.length() + 1], msg.c_str()); 
         return send(sockfd, char_msg, strlen(char_msg), 0);
     }
 
     static void ack_forward(string username, int sockfd){
+        // sends an acknowledgement that the forward message was received
         string msg = "RECEIVED " + username + "\n\n";
         char* char_msg = strcpy(new char[ msg.length() + 1], msg.c_str()); 
         send(sockfd, char_msg, strlen(char_msg), 0);

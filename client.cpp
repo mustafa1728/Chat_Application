@@ -138,7 +138,18 @@ int main(){
 	while(1){
 
 			cout<<"Please Enter your username (alphanumeric only)\n\n";
-			cin>>username;
+			char usr_input[200] = {};
+			fgets(usr_input, 200, stdin);
+			string raw_username(usr_input);
+			username = "";
+			for (int i=0;i<raw_username.length();i++){
+				if (raw_username[i] != '\n')
+					username += raw_username[i];
+			}
+			if( username == "" || username == " " || username == "\n")
+				continue;
+
+
 
 			client_receive_socket = socket(AF_INET,SOCK_STREAM,0);
 			int receive_socket_connection_status = connect( client_receive_socket , (struct sockaddr *)&server_address, sizeof(server_address));
