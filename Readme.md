@@ -1,10 +1,20 @@
 # Chat Application
 
-### -Mustafa Chasmai 
+-Mustafa Chasmai 
 
 Part of an assignment of course COL334. TCP sockets were used to create a simple chat application. 
 
 A detailed description of the problem statement can be found [here](./assets/problem_statement.pdf).
+
+### Description
+
+A chat application that allows users to send plain text messages with one another. The figure below shows the framework. Users can direct messages to other users using an `@[username] [message]` syntax, and the server will forward these messages to the intended recipients. The message could be intended to be sent for a single client (Unicast) or all clients (Broadcast). The messages would be communicated as plain text, so the server will be able to read the messages. This is a simpler version of any commercial chat-based application which make use of centralized servers for relaying the messages, except the fact that messages would be encrypted in the case of commercial applications.
+
+
+<p align="center">
+  <img src="./assets/framework.png" width="400"/>
+</p>
+
 
 ### Instructions to run
 
