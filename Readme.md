@@ -1,8 +1,8 @@
-# COL334 Assignment 2
+# Chat Application
 
-## Mustafa Chasmai | 2019CS10341
+### -Mustafa Chasmai 
 
-In this assignment TCP sockets were used to create a simple chat application. 
+Part of an assignment of course COL334. TCP sockets were used to create a simple chat application. 
 
 ### Instructions to run
 
