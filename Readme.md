@@ -1,10 +1,16 @@
 # Chat Application
 
--Mustafa Chasmai 
-
 Part of an assignment of course COL334. TCP sockets were used to create a simple chat application. 
 
 A detailed description of the problem statement can be found [here](./assets/problem_statement.pdf).
+
+### Demonstration
+
+<p align="center">
+  <img src="./assets/demo.gif" width="600"/><br>
+  A demo showing two clients chatting with each other, along with the server.
+</p>
+
 
 ### Description
 
